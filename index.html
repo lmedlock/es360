@@ -8,7 +8,7 @@
   <style type="text/css">
     body {
       margin-top: 1.0em;
-      background-color: #141f3f;
+      background-color: #A19D9E;
       font-family: Helvetica, Arial, FreeSans, san-serif;
       color: #ffffff;
     }
@@ -27,59 +27,90 @@
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+    
+    #num-line{position: absolute; margin-left:200px; margin-top:50px;}
+    #line{width:800px;height:10px;background-color:black; position: absolute;}
+    .marker{width:5px; height:20px;background-color:black;}
+    #zero{position:absolute; padding-top:10px;}
+    #five{position:absolute; margin-left:400px;padding-top:10px;}
+    #ten{position:absolute; margin-left:800px;padding-top:10px;}
+    #you{position:absolute; top:30px; left:-32px; display:none;}
+    #t1{position:absolute; top: 100px; left:-32px; display:none;}
+    #t2{position:absolute; bottom: 90px; left:-32px; display:none;}
+    #t3{position:absolute; bottom: 20px; left:-32px; display:none;}
+    
+    
+    #team-options{position:relative; top:350px; display:none;}
+    
+    
   </style>
+  <script src="http://jquery.com/src/jquery-latest.js"></script>
+  <script>
+    function calcScore(){
+        
+        var myScore = $('input:text[name=myScore]').val()*80;
+        var t1Score = $('input:text[name=t1Score]').val()*80;
+        var t2Score = $('input:text[name=t2Score]').val()*80;
+        var t3Score = $('input:text[name=t3Score]').val()*80;
+        $('#you').css('left',myScore-32);
+        $('#t1').css('left',t1Score-32);
+        $('#t2').css('left',t2Score-32);
+        $('#t3').css('left',t3Score-32);
+        $('#you').css('display','block');
+        $('#t1').css('display','block');
+        $('#t2').css('display','block');
+        $('#t3').css('display','block');
+        $('#team-options').css('display','block');
+    }
+    
+    function calcTeam(){
+    
+        var teamLength = $('input:checkbox[name*=tm]:checked').length;
+        var myPos = $('you').position();
+        var t1Pos = $('t1').position();
+        var t2Pos = $('t2').position();
+        var t3Pos = $('t3').position();
+        
+        switch (teamLength){
+            case 1: 
+        }
+    }
+  </script>
+
+
+
 </head>
 
 <body>
-  <a href="https://github.com/lmedlock/es360"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="https://github.com/lmedlock/es360/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/lmedlock/es360/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="https://github.com/lmedlock/es360">es360</a>
-      <span class="small">by <a href="https://github.com/lmedlock">lmedlock</a></span></h1>
-
-    <div class="description">
-      eSkill as f(interaction)
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-      <h2>Contact</h2>
-      <p> (leonard.medlock@gmail.com)<br/>      </p>
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/lmedlock/es360/zipball/master">zip</a> or
-      <a href="https://github.com/lmedlock/es360/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/lmedlock/es360</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/lmedlock/es360">lmedlock/es360</a>
-    </div>
-
+  <h1>(360)eSkill</h1>
+  <p>On a scale of 1-10, EVALUATE your SKILLSET in your CURRENT ROLE.  Then, do the same for your three team members.  When finished, click UPDATE.</p>
+  
+  <form>
+    You: <input type="text" style="width:40px;" name="myScore"/><br/>
+    TM1:<input type="text" style="width:40px;" name="t1Score"/><br/>
+    TM2:<input type="text" style="width:40px;" name="t2Score"/><br/>
+    TM3:<input type="text" style="width:40px;" name="t3Score"/><br/>
+    <input type="button" width="100px" value="Update" onclick="calcScore();"/>
+  </form>
+  
+  <div id="num-line">
+    <div id="line"></div>
+    <div id="zero" class="marker">0</div>
+    <div id="five" class="marker">5</div>
+    <div id="ten" class="marker">10</div>
+    <img id="you" src="http://cdn1.iconfinder.com/data/icons/SEVEN/accounting/png/64/provider.png"/>
+    <img id="t1" src="http://aux.iconpedia.net/uploads/1289641585970501242.png"/>
+    <img id="t2" src="http://cdn4.iconfinder.com/data/icons/Basic_set2_Png/64/user4.png"/>
+    <img id="t3" src="http://icons.iconarchive.com/icons/saki/nuoveXT/64/User-female-icon.png"/>
   </div>
-
+  
+  <div id="team-options">
+    <form>
+        Team Member 1:<input type="checkbox" name="tm-1" onclick="calcTeam();"/>
+        Team Member 2:<input type="checkbox" name="tm-2" onclick="calcTeam();"/>
+        Team Member 3:<input type="checkbox" name="tm-3" onclick="calcTeam();"/>
+    </form>
+  </div>
+  
 </body>
 </html>
